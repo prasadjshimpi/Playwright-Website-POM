@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+
+<suite name="Test Suite" thread-count="5" parallel="tests" verbose="4">
+	<listeners>
+		<listener
+			class-name="com.loginext.website.listeners.ExtentReportListener" />
+	</listeners>
+
+	<test name="Home Page Test">
+		<parameter name="browser" value="chromium" />
+		<classes>
+			<class name="com.loginext.website.tests.HomePageTest" />
+		</classes>
+	</test>
+</suite>
