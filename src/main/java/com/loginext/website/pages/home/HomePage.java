@@ -2,6 +2,7 @@ package com.loginext.website.pages.home;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import com.loginext.website.components.home.AwardData;
 import com.loginext.website.components.home.IndustryWeServeData;
@@ -10,6 +11,7 @@ import com.loginext.website.components.home.SignUpCardData;
 import com.loginext.website.components.home.WhyLoginextCardData;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
+import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
 
 public class HomePage extends BasePage {
@@ -181,6 +183,73 @@ public class HomePage extends BasePage {
 	private String loginextReversePricing = "[data-auto-id='sign_up_popup_card_product_reverse_pricing']";
 	private String loginextOnDemandPricing = "[data-auto-id='sign_up_popup_card_product_on_demand_pricing']";
 	private String loginextHaulPricing = "[data-auto-id='sign_up_popup_card_product_haul_pricing']";
+
+	private String footerPlatform = "[data-auto-id='footer_products']";
+	private String footerLoginextMile = "[data-auto-id='footer_products_mile']";
+	private String footerLoginextReverse = "[data-auto-id='footer_products_reverse']";
+	private String footerLoginextOnDemand = "[data-auto-id='footer_products_on_demand']";
+	private String footerLoginextHaul = "[data-auto-id='footer_products_haul']";
+	private String footerLoginextDriverApp = "[data-auto-id='footer_products_driver_app']";
+
+	private String footerIndustries = "[data-auto-id='footer_industries']";
+	private String footerCEP = "[data-auto-id='footer_courier_express_and_parcel']";
+	private String footerRE = "[data-auto-id='footer_retail_and_e_commerce']";
+	private String footerCPG = "[data-auto-id='footer_consumer_packaged_goods']";
+	private String footerFB = "[data-auto-id='footer_food_and_beverage']";
+	private String footerTL = "[data-auto-id='footer_transportation_and_logistics']";
+
+	private String footerUsecase = "[data-auto-id='footer_usecase']";
+	private String footerPickup = "[data-auto-id='footer_use_case_pickup']";
+	private String footerDelivery = "[data-auto-id='footer_use_case_delivery']";
+	private String footerPickupDelivery = "[data-auto-id='footer_use_case_pickup_and_delivery']";
+	private String footerLineHaul = "[data-auto-id='footer_use_case_line_haul']";
+	private String footerEndToEnd = "[data-auto-id='footer_use_case_end_to_end']";
+
+	private String footerResources = "[data-auto-id='footer_resource']";
+	private String footerCaseStudies = "[data-auto-id='footer_resource_case_study']";
+	private String footerWhitePapers = "[data-auto-id='footer_resource_white_paper']";
+	private String footerInfographics = "[data-auto-id='footer_resource_infographics']";
+	private String footerCarbonEmissionCalculator = "[data-auto-id='footer_resource_carbon_emission_calculator']";
+
+	private String footerJoinUs = "[data-auto-id='footer_join-us']";
+	private String footerCompanyCulture = "[data-auto-id='footer_join_us_company_culture']";
+	private String footerInterviewProcess = "[data-auto-id='footer_join_us_interview_process']";
+	private String footerJobRoles = "[data-auto-id='footer_join_us_job_role']";
+
+	private String footerCompany = "[data-auto-id='footer_company']";
+	private String footerAboutUs = "[data-auto-id='footer_company_about_us']";
+	private String footerContactUs = "[data-auto-id='footer_company_contact_us']";
+	private String footerNewsMedia = "[data-auto-id='footer_company_news_media']";
+	private String footerSiteMap = "[data-auto-id='footer_site_map']";
+
+	private String footerSupport = "[data-auto-id='footer_support']";
+	private String footerAPI_Integrations = "[data-auto-id='footer_api-integration']";
+	private String footerTrust = "[data-auto-id='footer_trust']";
+	private String footerCustomerLogin = "[data-auto-id='footer_customer-login']";
+	private String footerEULA = "[data-auto-id='footer_end-user-license-agreement']";
+	private String footerFeatureGallery = "[data-auto-id='footer_feature-gallery']";
+	private String footerSecurity = "[data-auto-id='footer_security']";
+
+	private String footerDistinctiveBenefits = "[data-auto-id='footer_distinctive-benefits']";
+	private String footerLTODM = "[data-auto-id='footer_live-tracking-of-delivery-movement']";
+	private String footerERO = "[data-auto-id='footer_efficient-route-optimization']";
+	private String footerAPAD = "[data-auto-id='footer_automated-pickups-and-delivery']";
+	private String footerDSP = "[data-auto-id='footer_delivery-schedule-planning']";
+
+	private String footerSpotlightContent = "[data-auto-id='footer_spotlight-content']";
+	private String footerEYDPS = "[data-auto-id='footer_elevate-your-deliveries-with-proven-strategies']";
+	private String footerRYLTE = "[data-auto-id='footer_revolutionize-your-logistics-with-tms-excellence']";
+	private String footerTLUG = "[data-auto-id='footer_transform-logistics-with-the-ultimate-guide']";
+	private String footerTUGLMDS = "[data-auto-id='footer_the-ultimate-gGuide-tto-last-mile-delivery-solutions']";
+
+	private String footerFacebook = "[data-auto-id='facebook']";
+	private String footerTwitter = "[data-auto-id='twitter']";
+	private String footerLinkedin = "[data-auto-id='linkedIn']";
+	private String footerInstagram = "[data-auto-id='instagram']";
+	private String footerYoutube = "[data-auto-id='youtube']";
+
+	private String footerGooglePlay = "[data-auto-id='undefined_google_play_store']";
+	private String footerAppstore = "[data-auto-id='undefined_apple_app_store']";
 
 	public String getHomePageTitle() {
 		return page.title();
@@ -938,6 +1007,19 @@ public class HomePage extends BasePage {
 	public boolean clickSignupAndVerifyPopupCloseButton() {
 		page.locator(signup).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
 		page.click(signup);
+
+		Locator signUpPageCards = page.locator(signUpCards);
+
+		int expectedCount = 4;
+		int timeoutMs = 5000;
+		int intervalMs = 200;
+		int elapsed = 0;
+
+		while (signUpPageCards.count() < expectedCount && elapsed < timeoutMs) {
+			page.waitForTimeout(intervalMs);
+			elapsed += intervalMs;
+		}
+
 		page.locator(signupClose).waitFor(new Locator.WaitForOptions().setState(WaitForSelectorState.VISIBLE));
 		return isVisible(signupClose);
 	}
@@ -1005,5 +1087,55 @@ public class HomePage extends BasePage {
 	public String clickHaulPricing(String expectedUrl) {
 		return clickRedirectButton(loginextHaulPricing, expectedUrl);
 	}
+
+	public void navigationFooterMenu() {
+	      page.locator("#products").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("platform")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext Mile").setExact(true)).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext Reverse").setExact(true)).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext On-Demand").setExact(true)).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext Haul").setExact(true)).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext Driver app").setExact(true)).click();
+	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Courier, Express and Parcel")).click();
+	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Retail and eCommerce")).click();
+	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Consumer Packaged Goods")).click();
+	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Food and Beverage")).click();
+	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Transportation and Logistics")).click();
+	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Pickup").setExact(true)).click();
+	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Delivery").setExact(true)).click();
+	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Pickup and Delivery")).click();
+	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Line Haul")).click();
+	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("End to End")).click();
+	      page.locator("#resource").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Case Studies")).click();
+//	      page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText(Pattern.compile("^resources$"))).click();
+//	      page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText(Pattern.compile("^Use cases$"))).click();
+	      page.locator("#resource").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("White Papers")).click();
+	      page.locator("#resource").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Infographics")).click();
+	      page.locator("#resource").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Carbon Emission Calculator")).click();
+//	      page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText(Pattern.compile("^join us$"))).click();
+	      page.locator("#join-us").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Company Culture")).click();
+	      page.locator("#join-us").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Interview Process")).click();
+	      page.locator("#join-us").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Job Roles")).click();
+//	      page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText(Pattern.compile("^company$"))).click();
+	      page.locator("#company").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("About Us")).click();
+	      page.locator("#company").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Contact Us")).click();
+	      page.locator("#company").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("News and Media")).click();
+	      page.locator("#company").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Site Map")).click();
+	      page.locator("#support").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("API & Integrations")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Customer Login")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Trust")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("End User License Agreement")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Feature Gallery")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Security")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Live Tracking of Delivery")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Efficient Route Optimization")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Automated Pickups and Delivery")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Delivery Schedule Planning")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Elevate Your Deliveries with")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Revolutionize Your Logistics")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Transform Logistics with the")).click();
+	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("The Ultimate Guide to Last")).click();
+		
+	}
+	
 
 }

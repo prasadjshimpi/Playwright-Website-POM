@@ -10,9 +10,10 @@ import java.util.Properties;
 import com.microsoft.playwright.Browser;
 import com.microsoft.playwright.BrowserContext;
 import com.microsoft.playwright.BrowserType;
+import com.microsoft.playwright.BrowserType.LaunchOptions;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.Playwright;
-import com.microsoft.playwright.BrowserType.LaunchOptions;
+import com.microsoft.playwright.Tracing;
 
 public class PlaywrightFactory {
 
@@ -68,20 +69,50 @@ public class PlaywrightFactory {
 		case "edge":
 			tlBrowser.set(
 					getPlaywright().chromium().launch(new LaunchOptions().setChannel("msedge").setHeadless(false)));
-			break;	
+			break;
 
 		default:
 			System.out.println("please pass the right browser name......");
 			break;
 		}
 
-		tlBrowserContext.set(getBrowser().newContext());
-//		tlBrowserContext.set(getBrowser().newContext(new Browser.NewContextOptions().setViewportSize(1440, 900))); // or .setViewportSize(1920, 1080)
-			
+//		tlBrowserContext.set(getBrowser().newContext());
+		tlBrowserContext.set(getBrowser().newContext(new Browser.NewContextOptions().setViewportSize(1440, 675)));
+
+		// Start tracing before creating / navigating a page.
+		getBrowserContext().tracing()
+				.start(new Tracing.StartOptions().setScreenshots(true).setSnapshots(true).setSources(true));
+
 		tlPage.set(getBrowserContext().newPage());
 		getPage().navigate(prop.getProperty("url").trim());
 		return getPage();
 
+	}
+
+	public void tearDown() {
+		try {
+			if (getPage() != null) {
+				getPage().close();
+				tlPage.remove();
+			}
+			if (getBrowserContext() != null) {
+				// Stop tracing and export it
+				getBrowserContext().tracing().stop(new Tracing.StopOptions().setPath(Paths.get(
+						System.getProperty("user.dir") + "/tracing/" + System.currentTimeMillis() + "_trace.zip")));
+				getBrowserContext().close();
+				tlBrowserContext.remove();
+			}
+			if (getBrowser() != null) {
+				getBrowser().close();
+				tlBrowser.remove();
+			}
+			if (getPlaywright() != null) {
+				getPlaywright().close();
+				tlPlaywright.remove();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -110,11 +141,9 @@ public class PlaywrightFactory {
 
 	public static String takeScreenshot() {
 		String path = System.getProperty("user.dir") + "/screenshot/" + System.currentTimeMillis() + ".png";
-		//getPage().screenshot(new Page.ScreenshotOptions().setPath(Paths.get(path)).setFullPage(true));
-		
 		byte[] buffer = getPage().screenshot(new Page.ScreenshotOptions().setPath(Paths.get(path)).setFullPage(true));
 		String base64Path = Base64.getEncoder().encodeToString(buffer);
-		
+
 		return base64Path;
 	}
 

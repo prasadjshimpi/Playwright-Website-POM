@@ -10,9 +10,9 @@ public class HomePageConstants {
 
 	public static final String[] HOME_PAGE_SECTION_2_BRANDS = { "cargo-expreso", "singapore-post", "toyata",
 			"mgm-bosco", "malta-post", "lion-parcel", "seven-eleven", "target", "lotus", "marko", "dmart", "nestle",
-			"unilever", "pg", "heineken", "coca-cola", "true-value", "danone",  "kfc", "starbucks",
-			"burger-king", "pizza-hut", "taco-bell", "baskin-robbin", "papa-johns", "dunkin-donuts", "agility",
-			"apl-logistics", "lf-logistics", "mahindra-logistics", "rsa-global" };
+			"unilever", "pg", "heineken", "coca-cola", "true-value", "danone", "kfc", "starbucks", "burger-king",
+			"pizza-hut", "taco-bell", "baskin-robbin", "papa-johns", "dunkin-donuts", "agility", "apl-logistics",
+			"lf-logistics", "mahindra-logistics", "rsa-global" };
 
 	public static final String HOME_PAGE_SECTION_3_IMG_1_TEXT = "Gartner Insights";
 
@@ -260,7 +260,8 @@ public class HomePageConstants {
 					"https://www.forbesindia.com/article/30-under-30-2017/dhruvil-sanghvi-is-working-to-make-loginext-the-google-of-supplychain-logistics/45877/1"),
 //			new Award("gartner", "awards__reference-item awards__reference-item--gartner"),
 //			new Award("IBM", "awards__reference-item awards__reference-item--ibm"),
-			new Award("gartner", "https://www.gartner.com/reviews/market/transportation-management-systems/vendor/loginext/product/loginext-mile") };
+			new Award("gartner",
+					"https://www.gartner.com/reviews/market/transportation-management-systems/vendor/loginext/product/loginext-mile") };
 
 	public record SignUpCard(String company, String title, String companyDesc, String button1_text, String button2_text,
 			String image_text, String image_link) {
@@ -279,4 +280,10 @@ public class HomePageConstants {
 					"Get the best Transportation Optimization platform to gain end to end visibility over your logistical operations, avoid supply chain hiccups and lower overall transportation costs.",
 					"Start Free Trial", "Pricing", "haul", "/_next/static/media/product-haul.f39905e9.svg") };
 
+	public record FooterTextLink(String footerText, String footerLink) {
+	};
+
+	public static final FooterTextLink[] FOOTER_TEXT_LINK = {
+			new FooterTextLink("","")
+	};
 }

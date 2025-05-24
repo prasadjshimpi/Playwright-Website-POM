@@ -36,7 +36,13 @@ public class BaseTest {
 
 	@AfterTest
 	public void tearDown() {
-		page.context().browser().close();
+		pf.tearDown();
+
+//		page.context().browser().close();
+//		
+//		// Stop tracing and export it into a zip archive.
+//		page.context().tracing().stop(new Tracing.StopOptions()
+//		  .setPath(Paths.get("trace.zip")));
 	}
 
 }

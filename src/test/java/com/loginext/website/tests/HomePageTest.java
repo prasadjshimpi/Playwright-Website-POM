@@ -532,7 +532,7 @@ public class HomePageTest extends BaseTest {
 				"Close button did not appear in signup popup!");
 		Assert.assertEquals(homePage.clickOnDemandPricing(pricingUrl), pricingUrl,
 				"On Demand Pricing Button not working !");
-
+		
 		Assert.assertTrue(homePage.clickSignupAndVerifyPopupCloseButton(),
 				"Close button did not appear in signup popup!");
 		Assert.assertEquals(homePage.clickHaulStartFreeTrial(signUpUrl), signUpUrl,
@@ -544,7 +544,9 @@ public class HomePageTest extends BaseTest {
 	}
 
 	@Test(priority = 15, enabled = true)
-	public void verfiyHeaderMenuNavigation() {
+	public void verfiyFooterMenuNavigation() {
 
+		
+		
 	}
 }
