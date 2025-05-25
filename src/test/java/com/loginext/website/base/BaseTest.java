@@ -1,15 +1,14 @@
 package com.loginext.website.base;
 
-import java.util.Properties;
-
+import com.loginext.website.factory.PlaywrightFactory;
+import com.loginext.website.pages.home.HomePage;
+import com.microsoft.playwright.Page;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
-import com.loginext.website.factory.PlaywrightFactory;
-import com.loginext.website.pages.home.HomePage;
-import com.microsoft.playwright.Page;
+import java.util.Properties;
 
 public class BaseTest {
 

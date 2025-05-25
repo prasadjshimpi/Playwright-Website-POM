@@ -1,18 +1,13 @@
 package com.loginext.website.pages.home;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import com.loginext.website.components.home.AwardData;
-import com.loginext.website.components.home.IndustryWeServeData;
-import com.loginext.website.components.home.ReviewData;
-import com.loginext.website.components.home.SignUpCardData;
-import com.loginext.website.components.home.WhyLoginextCardData;
+import com.loginext.website.components.home.*;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import com.microsoft.playwright.options.AriaRole;
 import com.microsoft.playwright.options.WaitForSelectorState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePage extends BasePage {
 	public HomePage(Page page) {

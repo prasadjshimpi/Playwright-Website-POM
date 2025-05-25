@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>Playwright-Website-POM</groupId>
@@ -12,27 +12,63 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>17</maven.compiler.source>
+		<maven.compiler.target>17</maven.compiler.target>
 		<maven.compiler.release>17</maven.compiler.release>
 		<playwright-version>1.52.0</playwright-version>
 		<testng-version>7.11.0</testng-version>
 		<extentreports-version>5.1.2</extentreports-version>
+		<slf4j-version>2.0.13</slf4j-version>
 	</properties>
 
 	<dependencies>
+		<!-- Playwright for browser automation -->
 		<dependency>
 			<groupId>com.microsoft.playwright</groupId>
 			<artifactId>playwright</artifactId>
 			<version>${playwright-version}</version>
 		</dependency>
+
+		<!-- TestNG for test execution -->
 		<dependency>
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>${testng-version}</version>
+			<scope>test</scope>
 		</dependency>
+
+		<!-- ExtentReports for test reporting -->
 		<dependency>
 			<groupId>com.aventstack</groupId>
 			<artifactId>extentreports</artifactId>
 			<version>${extentreports-version}</version>
+		</dependency>
+
+		<!-- Logging dependencies -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j-version}</version>
+		</dependency>
+
+		<!-- JSON processing (useful for test data) -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.17.2</version>
+		</dependency>
+
+		<!-- Apache Commons Lang for utilities -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.14.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>7.11.0</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
@@ -51,8 +87,9 @@
 					<artifactId>maven-compiler-plugin</artifactId>
 					<version>3.13.0</version>
 					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
+						<source>${maven.compiler.source}</source>
+						<target>${maven.compiler.target}</target>
+						<release>${maven.compiler.release}</release>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -61,11 +98,14 @@
 					<configuration>
 						<forkCount>3</forkCount>
 						<reuseForks>true</reuseForks>
-						<!--<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>-->
+						<parallel>methods</parallel>
+						<threadCount>3</threadCount>
 						<suiteXmlFiles>
-							<suiteXmlFile>
-								src/test/resources/testrunners/testng_regressions.xml</suiteXmlFile>
+							<suiteXmlFile>src/test/resources/testrunners/testng_regressions.xml</suiteXmlFile>
 						</suiteXmlFiles>
+						<systemPropertyVariables>
+							<testng.dtd.http>true</testng.dtd.http>
+						</systemPropertyVariables>
 					</configuration>
 				</plugin>
 				<plugin>
@@ -90,5 +130,52 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+
+		<plugins>
+			<!-- Ensure compiler plugin is activated -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<!-- Ensure surefire plugin is activated -->
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+		</plugins>
 	</build>
+
+	<profiles>
+		<!-- Profile for running tests in headless mode -->
+		<profile>
+			<id>headless</id>
+			<properties>
+				<playwright.headless>true</playwright.headless>
+			</properties>
+		</profile>
+
+		<!-- Profile for running tests with headed browsers -->
+		<profile>
+			<id>headed</id>
+			<properties>
+				<playwright.headless>false</playwright.headless>
+			</properties>
+		</profile>
+
+		<!-- Profile for running smoke tests -->
+		<profile>
+			<id>smoke</id>
+			<build>
+				<plugins>
+					<plugin>
+						<artifactId>maven-surefire-plugin</artifactId>
+						<configuration>
+							<suiteXmlFiles>
+								<suiteXmlFile>src/test/resources/testrunners/testng_smoke.xml</suiteXmlFile>
+							</suiteXmlFiles>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

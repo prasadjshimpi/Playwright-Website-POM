@@ -1,28 +1,20 @@
 package com.loginext.website.tests;
 
-import java.util.List;
-
+import com.loginext.website.base.BaseTest;
+import com.loginext.website.components.home.*;
+import com.loginext.website.constants.HomePageConstants;
+import com.loginext.website.constants.HomePageConstants.*;
+import com.microsoft.playwright.Page;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
-import com.loginext.website.base.BaseTest;
-import com.loginext.website.components.home.AwardData;
-import com.loginext.website.components.home.IndustryWeServeData;
-import com.loginext.website.components.home.ReviewData;
-import com.loginext.website.components.home.SignUpCardData;
-import com.loginext.website.components.home.WhyLoginextCardData;
-import com.loginext.website.constants.HomePageConstants;
-import com.loginext.website.constants.HomePageConstants.Award;
-import com.loginext.website.constants.HomePageConstants.IndustryWeServe;
-import com.loginext.website.constants.HomePageConstants.Review;
-import com.loginext.website.constants.HomePageConstants.SignUpCard;
-import com.loginext.website.constants.HomePageConstants.WhyLoginextCard;
-import com.microsoft.playwright.Page;
+import java.util.List;
 
 public class HomePageTest extends BaseTest {
 
-	final boolean enableAllTest = false;
+	final boolean enableAllTest = true;
+	final boolean enableSignupTest = false;
 
 	@Test
 	public void verifyHomePageTitle_ShouldMatchExpectedTitle() {
@@ -467,7 +459,7 @@ public class HomePageTest extends BaseTest {
 		newTab.close(); // Close the new tab
 	}
 
-	@Test(priority = 13, enabled = enableAllTest)
+	@Test(priority = 13, enabled = enableSignupTest)
 	public void verifySignUpPage_Content() {
 		Assert.assertTrue(homePage.clickSignupAndVerifyPopupCloseButton(),
 				"Close button did not appear in signup popup!");
@@ -498,8 +490,8 @@ public class HomePageTest extends BaseTest {
 		homePage.clickSignupClose();
 	}
 
-	@Test(priority = 14, enabled = true)
-	public void verifySignUpMilePage_StartFreeTrial_Pricing_Buttons() throws InterruptedException {
+	@Test(priority = 14, enabled = enableSignupTest)
+	public void verifySignUpPage_StartFreeTrial_Pricing_Buttons() throws InterruptedException {
 
 		String signUpUrl = prop.getProperty("url") + "pricing/signup";
 		String pricingUrl = prop.getProperty("url") + "pricing";

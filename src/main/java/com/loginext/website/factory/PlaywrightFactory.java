@@ -1,19 +1,14 @@
 package com.loginext.website.factory;
 
+import com.microsoft.playwright.*;
+import com.microsoft.playwright.BrowserType.LaunchOptions;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Properties;
-
-import com.microsoft.playwright.Browser;
-import com.microsoft.playwright.BrowserContext;
-import com.microsoft.playwright.BrowserType;
-import com.microsoft.playwright.BrowserType.LaunchOptions;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.Playwright;
-import com.microsoft.playwright.Tracing;
 
 public class PlaywrightFactory {
 
