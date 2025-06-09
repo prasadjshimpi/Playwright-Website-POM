@@ -1,13 +1,19 @@
 package com.loginext.website.pages.home;
 
-import com.loginext.website.components.home.*;
-import com.microsoft.playwright.Locator;
-import com.microsoft.playwright.Page;
-import com.microsoft.playwright.options.AriaRole;
-import com.microsoft.playwright.options.WaitForSelectorState;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.loginext.website.components.home.AwardData;
+import com.loginext.website.components.home.IndustryWeServeData;
+import com.loginext.website.components.home.ReviewData;
+import com.loginext.website.components.home.SignUpCardData;
+import com.loginext.website.components.home.WhyLoginextCardData;
+import com.microsoft.playwright.Locator;
+import com.microsoft.playwright.Page;
+import com.microsoft.playwright.Page.WaitForURLOptions;
+import com.microsoft.playwright.options.AriaRole;
+import com.microsoft.playwright.options.WaitForSelectorState;
+import com.microsoft.playwright.options.WaitUntilState;
 
 public class HomePage extends BasePage {
 	public HomePage(Page page) {
@@ -246,11 +252,78 @@ public class HomePage extends BasePage {
 	private String footerGooglePlay = "[data-auto-id='undefined_google_play_store']";
 	private String footerAppstore = "[data-auto-id='undefined_apple_app_store']";
 
+	private String Platform = "[data-auto-id='products']";
+	private String LoginextMile = "[data-auto-id='products_mile']";
+	private String LoginextReverse = "[data-auto-id='products_reverse']";
+	private String LoginextOnDemand = "[data-auto-id='products_on_demand']";
+	private String LoginextHaul = "[data-auto-id='products_haul']";
+	private String LoginextDriverApp = "[data-auto-id='products_driver_app']";
+
+	private String Industries = "[data-auto-id='industries']";
+	private String CEP = "[data-auto-id='courier_express_and_parcel']";
+	private String RE = "[data-auto-id='retail_and_e_commerce']";
+	private String CPG = "[data-auto-id='consumer_packaged_goods']";
+	private String FB = "[data-auto-id='food_and_beverage']";
+	private String TL = "[data-auto-id='transportation_and_logistics']";
+
+	private String Usecase = "[data-auto-id='usecase']";
+	private String Pickup = "[data-auto-id='use_case_pickup']";
+	private String Delivery = "[data-auto-id='use_case_delivery']";
+	private String PickupDelivery = "[data-auto-id='use_case_pickup_and_delivery']";
+	private String LineHaul = "[data-auto-id='use_case_line_haul']";
+	private String EndToEnd = "[data-auto-id='use_case_end_to_end']";
+
+	private String Resources = "[data-auto-id='resource']";
+	private String CaseStudies = "[data-auto-id='resource_case_study']";
+	private String WhitePapers = "[data-auto-id='resource_white_paper']";
+	private String Infographics = "[data-auto-id='resource_infographics']";
+	private String CarbonEmissionCalculator = "[data-auto-id='resource_carbon_emission_calculator']";
+
+	private String JoinUs = "[data-auto-id='join-us']";
+	private String CompanyCulture = "[data-auto-id='join_us_company_culture']";
+	private String InterviewProcess = "[data-auto-id='join_us_interview_process']";
+	private String JobRoles = "[data-auto-id='join_us_job_role']";
+
+	private String Company = "[data-auto-id='company']";
+	private String AboutUs = "[data-auto-id='company_about_us']";
+	private String ContactUs = "[data-auto-id='company_contact_us']";
+	private String NewsMedia = "[data-auto-id='company_news_media']";
+	private String SiteMap = "[data-auto-id='site_map']";
+
+	private String Support = "[data-auto-id='support']";
+	private String API_Integrations = "[data-auto-id='api-integration']";
+	private String Trust = "[data-auto-id='trust']";
+	private String CustomerLogin = "[data-auto-id='customer-login']";
+	private String EULA = "[data-auto-id='end-user-license-agreement']";
+	private String FeatureGallery = "[data-auto-id='feature-gallery']";
+	private String Security = "[data-auto-id='security']";
+
+	private String DistinctiveBenefits = "[data-auto-id='distinctive-benefits']";
+	private String LTODM = "[data-auto-id='live-tracking-of-delivery-movement']";
+	private String ERO = "[data-auto-id='efficient-route-optimization']";
+	private String APAD = "[data-auto-id='automated-pickups-and-delivery']";
+	private String DSP = "[data-auto-id='delivery-schedule-planning']";
+
+	private String SpotlightContent = "[data-auto-id='spotlight-content']";
+	private String EYDPS = "[data-auto-id='elevate-your-deliveries-with-proven-strategies']";
+	private String RYLTE = "[data-auto-id='revolutionize-your-logistics-with-tms-excellence']";
+	private String TLUG = "[data-auto-id='transform-logistics-with-the-ultimate-guide']";
+	private String TUGLMDS = "[data-auto-id='the-ultimate-gGuide-tto-last-mile-delivery-solutions']";
+
+	private String Facebook = "[data-auto-id='facebook']";
+	private String Twitter = "[data-auto-id='twitter']";
+	private String Linkedin = "[data-auto-id='linkedIn']";
+	private String Instagram = "[data-auto-id='instagram']";
+	private String Youtube = "[data-auto-id='youtube']";
+
+	private String GooglePlay = "[data-auto-id='undefined_google_play_store']";
+	private String Appstore = "[data-auto-id='undefined_apple_app_store']";
+
 	public String getHomePageTitle() {
 		return page.title();
 	}
 
-	public String getHomePageURL() {
+	public String getPageURL() {
 		return page.url();
 	}
 
@@ -902,8 +975,7 @@ public class HomePage extends BasePage {
 		int tabsCount = industriesWeServeTabs.count();
 		String tabTitle = null, imageText, imageTitle, imageDescription;
 		String imageButton1Text, imageButton1Link, imageButton2Text, imageButton2Link;
-		String tabBox1Title = null, tabBox2Title = null, tabBox3Title = null, tabBox4Title = null, tabBox5Title = null,
-				tabBox6Title = null;
+		String tabBox1Title = null, tabBox2Title = null, tabBox3Title = null, tabBox4Title = null, tabBox5Title = null, tabBox6Title = null;
 
 		for (int i = 0; i < tabsCount; i++) {
 			Locator item = industriesWeServeTabs.nth(i);
@@ -970,9 +1042,7 @@ public class HomePage extends BasePage {
 				break;
 			}
 
-			industriesWeServeList.add(new IndustryWeServeData(tabTitle, imageText, imageTitle, imageDescription,
-					imageButton1Text, imageButton1Link, imageButton2Text, imageButton2Link, tabBox1Title, tabBox2Title,
-					tabBox3Title, tabBox4Title, tabBox5Title, tabBox6Title));
+			industriesWeServeList.add(new IndustryWeServeData(tabTitle, imageText, imageTitle, imageDescription, imageButton1Text, imageButton1Link, imageButton2Text, imageButton2Link, tabBox1Title, tabBox2Title, tabBox3Title, tabBox4Title, tabBox5Title, tabBox6Title));
 		}
 		return industriesWeServeList;
 	}
@@ -1039,8 +1109,7 @@ public class HomePage extends BasePage {
 			String image_text = item.locator(".platform-card__image").getAttribute("alt");
 			String image_link = item.locator(".platform-card__image").getAttribute("src");
 
-			signUpCards.add(new SignUpCardData(company, title, companyDesc, button1_text, button2_text, image_text,
-					image_link));
+			signUpCards.add(new SignUpCardData(company, title, companyDesc, button1_text, button2_text, image_text, image_link));
 		}
 		return signUpCards;
 	}
@@ -1083,54 +1152,42 @@ public class HomePage extends BasePage {
 		return clickRedirectButton(loginextHaulPricing, expectedUrl);
 	}
 
-	public void navigationFooterMenu() {
-	      page.locator("#products").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("platform")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext Mile").setExact(true)).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext Reverse").setExact(true)).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext On-Demand").setExact(true)).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext Haul").setExact(true)).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("LogiNext Driver app").setExact(true)).click();
-	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Courier, Express and Parcel")).click();
-	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Retail and eCommerce")).click();
-	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Consumer Packaged Goods")).click();
-	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Food and Beverage")).click();
-	      page.locator("#industries").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Transportation and Logistics")).click();
-	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Pickup").setExact(true)).click();
-	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Delivery").setExact(true)).click();
-	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Pickup and Delivery")).click();
-	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Line Haul")).click();
-	      page.locator("#usecase").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("End to End")).click();
-	      page.locator("#resource").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Case Studies")).click();
-//	      page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText(Pattern.compile("^resources$"))).click();
-//	      page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText(Pattern.compile("^Use cases$"))).click();
-	      page.locator("#resource").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("White Papers")).click();
-	      page.locator("#resource").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Infographics")).click();
-	      page.locator("#resource").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Carbon Emission Calculator")).click();
-//	      page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText(Pattern.compile("^join us$"))).click();
-	      page.locator("#join-us").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Company Culture")).click();
-	      page.locator("#join-us").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Interview Process")).click();
-	      page.locator("#join-us").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Job Roles")).click();
-//	      page.getByRole(AriaRole.LISTITEM).filter(new Locator.FilterOptions().setHasText(Pattern.compile("^company$"))).click();
-	      page.locator("#company").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("About Us")).click();
-	      page.locator("#company").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Contact Us")).click();
-	      page.locator("#company").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("News and Media")).click();
-	      page.locator("#company").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("Site Map")).click();
-	      page.locator("#support").getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName("API & Integrations")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Customer Login")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Trust")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("End User License Agreement")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Feature Gallery")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Security")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Live Tracking of Delivery")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Efficient Route Optimization")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Automated Pickups and Delivery")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Delivery Schedule Planning")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Elevate Your Deliveries with")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Revolutionize Your Logistics")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("Transform Logistics with the")).click();
-	      page.getByRole(AriaRole.LINK, new Page.GetByRoleOptions().setName("The Ultimate Guide to Last")).click();
-		
+	public String navigateToFooter(String footerHeaderName, String footerName, String expectedUrl) {
+		page.locator("#" + footerHeaderName).getByRole(AriaRole.LINK, new Locator.GetByRoleOptions().setName(footerName).setExact(true)).click();
+		page.waitForURL(expectedUrl, new Page.WaitForURLOptions().setWaitUntil(WaitUntilState.DOMCONTENTLOADED));
+		return page.url();
 	}
-	
+
+	public void navigateBack() {
+		page.goBack();
+	}
+
+	public String navigate(String menuPath) {
+		String[] levels = menuPath.split(">");
+		Locator currentLocator;
+
+		for (int i = 0; i < levels.length; i++) {
+			String menuItem = levels[i].trim();
+			String selector = String.format("[data-auto-id='%s']", getDataAutoId(menuItem));
+
+			currentLocator = page.locator(selector);
+
+			if (i < levels.length - 1) {
+				currentLocator.hover(new Locator.HoverOptions().setTimeout(3000));
+			} else {
+				currentLocator.click(new Locator.ClickOptions().setTimeout(3000));
+			}
+		}
+		return page.url();
+	}
+
+	private String getDataAutoId(String menuItem) {
+		return menuItem.toLowerCase();
+//		return menuItem.toLowerCase().replace(" ", "_").replaceAll("[^a-z0-9_]", "");
+//        .replaceAll("&", "and")         // replace & with 'and' if needed
+//        .replaceAll("[^a-z0-9_]", "_")  // replace all non-alphanum (except underscore) with underscore
+//        .replaceAll("_+", "_")          // collapse multiple underscores into one
+//        .replaceAll("^_|_$", "");       // trim leading/trailing underscores
+	}
 
 }

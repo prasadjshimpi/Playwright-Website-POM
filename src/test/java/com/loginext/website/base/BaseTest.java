@@ -3,6 +3,8 @@ package com.loginext.website.base;
 import com.loginext.website.factory.PlaywrightFactory;
 import com.loginext.website.pages.home.HomePage;
 import com.microsoft.playwright.Page;
+
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
@@ -36,12 +38,10 @@ public class BaseTest {
 	@AfterTest
 	public void tearDown() {
 		pf.tearDown();
+	}
 
-//		page.context().browser().close();
-//		
-//		// Stop tracing and export it into a zip archive.
-//		page.context().tracing().stop(new Tracing.StopOptions()
-//		  .setPath(Paths.get("trace.zip")));
+	public void verifyPageURL(String actualURL, String expectedURL) {
+		Assert.assertEquals(actualURL, expectedURL);
 	}
 
 }
